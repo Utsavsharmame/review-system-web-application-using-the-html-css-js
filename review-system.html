@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Review System</h1>
+        
+        <!-- Statistics Section -->
+        <div class="stats-section">
+            <h2>Review Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalReviews">0</div>
+                    <div class="stat-label">Total Reviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="averageRating">0.0</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="recentReviews">0</div>
+                    <div class="stat-label">Recent (7 days)</div>
+                </div>
+            </div>
+            <div class="rating-breakdown" id="ratingBreakdown">
+                <!-- Rating breakdown will be displayed here -->
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Review Form Section -->
+            <div class="form-section">
+                <h2>Submit Your Review</h2>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <div class="rating-container">
+                            <select id="rating" name="rating" required>
+                                <option value="">Select Rating</option>
+                                <option value="1">1 - Poor</option>
+                                <option value="2">2 - Fair</option>
+                                <option value="3">3 - Good</option>
+                                <option value="4">4 - Very Good</option>
+                                <option value="5">5 - Excellent</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea id="comment" name="comment" rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+            
+            <!-- Reviews Display Section -->
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h2>Customer Reviews</h2>
+                    <div class="reviews-controls">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search reviews...">
+                        </div>
+                        <select id="sortSelect">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="highest">Highest Rating</option>
+                            <option value="lowest">Lowest Rating</option>
+                        </select>
+                        <select id="filterSelect">
+                            <option value="all">All Ratings</option>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="reviewsContainer">
+                    <!-- Reviews will be displayed here -->
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Pagination controls will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
