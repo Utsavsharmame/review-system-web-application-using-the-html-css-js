@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDZ Digital Interview Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .analysis-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .interview-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .interview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .interview-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .experience-positive {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .experience-negative {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .experience-neutral {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .rounds-list {
+            margin-top: 15px;
+        }
+
+        .round-item {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .round-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .round-type {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .questions-list {
+            margin-top: 10px;
+        }
+
+        .question-tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .common-questions {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-text {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .question-count {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .salary-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .notes {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="analysis-container">
+        <div class="header">
+            <h1>IDZ Digital Interview Analysis</h1>
+            <p>Comprehensive analysis of interview experiences and patterns</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalInterviews">0</div>
+                <div class="stat-label">Total Interviews</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgRounds">0</div>
+                <div class="stat-label">Average Rounds</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="positiveExp">0%</div>
+                <div class="stat-label">Positive Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="commonLocation">-</div>
+                <div class="stat-label">Most Common Location</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('interviews')">Interview Details</button>
+            <button class="tab" onclick="showTab('questions')">Common Questions</button>
+            <button class="tab" onclick="showTab('statistics')">Statistics</button>
+        </div>
+
+        <div id="interviews" class="tab-content active">
+            <div class="section">
+                <h2>Interview Experiences</h2>
+                <div class="filters">
+                    <select class="filter-select" id="locationFilter" onchange="filterInterviews()">
+                        <option value="">All Locations</option>
+                    </select>
+                    <select class="filter-select" id="experienceFilter" onchange="filterInterviews()">
+                        <option value="">All Experiences</option>
+                    </select>
+                    <select class="filter-select" id="difficultyFilter" onchange="filterInterviews()">
+                        <option value="">All Difficulties</option>
+                    </select>
+                </div>
+                <div id="interviewsList"></div>
+            </div>
+        </div>
+
+        <div id="questions" class="tab-content">
+            <div class="section">
+                <h2>Most Common Interview Questions</h2>
+                <div class="common-questions" id="commonQuestionsList"></div>
+            </div>
+        </div>
+
+        <div id="statistics" class="tab-content">
+            <div class="section">
+                <h2>Detailed Statistics</h2>
+                <div id="detailedStats"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="idz-data.js"></script>
+    <script src="idz-analysis.js"></script>
+</body>
+</html>

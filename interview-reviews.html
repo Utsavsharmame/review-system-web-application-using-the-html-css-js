@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review System</title>
+    <title>IDZ Digital Interview Reviews</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>IDZ Digital Interview Experience Reviews</h1>
-            <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
-        </div>
+        <h1>IDZ Digital Interview Reviews</h1>
         
         <!-- Statistics Section -->
         <div class="stats-section">
@@ -19,7 +16,7 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" id="totalReviews">0</div>
-                    <div class="stat-label">Total Experiences</div>
+                    <div class="stat-label">Total Reviews</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="averageRating">0.0</div>
@@ -38,7 +35,7 @@
         <div class="content">
             <!-- Review Form Section -->
             <div class="form-section">
-                <h2>Share Your Interview Experience</h2>
+                <h2>Submit Your Interview Review</h2>
                 <form id="reviewForm">
                     <div class="form-group">
                         <label for="username">Your Name:</label>
@@ -46,28 +43,27 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="rounds">Interview Rounds:</label>
-                        <select id="rounds" name="rounds" required>
-                            <option value="">Select rounds completed</option>
-                            <option value="1">1 Round</option>
-                            <option value="2">2 Rounds</option>
-                            <option value="3">3 Rounds</option>
-                            <option value="4">4+ Rounds</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
                         <label for="experience">Experience Type:</label>
                         <select id="experience" name="experience" required>
-                            <option value="">Select experience type</option>
-                            <option value="positive">Positive</option>
-                            <option value="neutral">Neutral</option>
-                            <option value="negative">Negative</option>
+                            <option value="">Select Experience</option>
+                            <option value="Positive">Positive Experience</option>
+                            <option value="Negative">Negative Experience</option>
+                            <option value="Neutral">Neutral Experience</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label>Overall Rating:</label>
+                        <label for="difficulty">Interview Difficulty:</label>
+                        <select id="difficulty" name="difficulty" required>
+                            <option value="">Select Difficulty</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Average">Average</option>
+                            <option value="Difficult">Difficult</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Rating:</label>
                         <div class="star-rating" id="starRating">
                             <span class="star" data-rating="1">⭐</span>
                             <span class="star" data-rating="2">⭐</span>
@@ -80,24 +76,21 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="comment">Interview Details & Questions Asked:</label>
-                        <textarea id="comment" name="comment" rows="4" maxlength="500" placeholder="Describe your interview experience, questions asked, difficulty level, etc." required></textarea>
-                        <div class="char-counter">
-                            <span id="charCount">0</span>/500 characters
-                        </div>
+                        <label for="comment">Interview Experience:</label>
+                        <textarea id="comment" name="comment" rows="4" placeholder="Describe your interview experience, rounds, questions asked, etc." required></textarea>
                     </div>
                     
-                    <button type="submit">Submit Experience</button>
+                    <button type="submit">Submit Review</button>
                 </form>
             </div>
             
             <!-- Reviews Display Section -->
             <div class="reviews-section">
                 <div class="reviews-header">
-                    <h2>Interview Experiences</h2>
+                    <h2>Interview Reviews</h2>
                     <div class="reviews-controls">
                         <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Search experiences...">
+                            <input type="text" id="searchInput" placeholder="Search reviews...">
                         </div>
                         <select id="sortSelect">
                             <option value="newest">Newest First</option>

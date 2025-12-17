@@ -1,4 +1,4 @@
-class ReviewSystem {
+class InterviewReviewSystem {
     constructor() {
         this.reviews = this.loadReviews();
         this.form = document.getElementById('reviewForm');
@@ -23,56 +23,101 @@ class ReviewSystem {
         
         this.initStarRating();
         this.initCharCounter();
-        this.initDarkMode();
-        this.loadSampleData();
+        this.loadIDZData();
         this.updateStatistics();
         this.displayReviews();
     }
     
     loadReviews() {
-        const stored = localStorage.getItem('reviews');
+        const stored = localStorage.getItem('interviewReviews');
         return stored ? JSON.parse(stored) : [];
     }
     
-    loadSampleData() {
+    saveReviews() {
+        localStorage.setItem('interviewReviews', JSON.stringify(this.reviews));
+    }
+    
+    loadIDZData() {
         if (this.reviews.length === 0) {
-            const sampleReviews = [
+            const idzInterviews = [
                 {
-                    id: Date.now() - 10000,
+                    id: Date.now() - 100000,
                     username: "Anonymous Candidate",
                     rating: 2,
-                    comment: "4 rounds: Aptitude + coding, technical interview, HR, and director round. Asked about OOPs concepts, logical reasoning, and puzzles. The process took 3 days but waiting time was too long.",
                     rounds: "4",
                     experience: "negative",
-                    timestamp: new Date(Date.now() - 86400000).toISOString()
+                    comment: "Very third class. Tech employees who take interviews don't even know actual logical questions and only they know is their answers. Instead of focusing on technical abilities they waste their time asking Logical questions which they don't even know about. Programming questions on array and oops",
+                    timestamp: new Date(Date.now() - 864000000).toISOString()
                 },
                 {
-                    id: Date.now() - 20000,
-                    username: "Recent Graduate",
+                    id: Date.now() - 90000,
+                    username: "Thane Candidate",
                     rating: 3,
-                    comment: "3 rounds total. First round had aptitude questions and 3 coding problems (Fibonacci, prime number, second largest array). Technical round focused on logical reasoning and basic OOPs concepts.",
                     rounds: "3",
                     experience: "neutral",
-                    timestamp: new Date(Date.now() - 172800000).toISOString()
+                    comment: "First Round was an aptitude and coding round like 2 coding questions and 7-10 aptitude, Second was Technical coding interview, asked questions to write code like to find second largest digit in array, factorial. Average difficulty interview.",
+                    timestamp: new Date(Date.now() - 777600000).toISOString()
+                },
+                {
+                    id: Date.now() - 80000,
+                    username: "Referral Candidate",
+                    rating: 3,
+                    rounds: "4",
+                    experience: "neutral",
+                    comment: "There are total 4 rounds of interview 1] a) Aptitude, coding ( Google form) b)Puzzles on PC 2] Technical Interview 3] HR interview 4] Director round (on a different day). In aptitude, just basic math question are asked. In coding section, we've to write code for 3 questions (easy- fibbonaci, prime number, reverse of a 3 digit number)",
+                    timestamp: new Date(Date.now() - 691200000).toISOString()
+                },
+                {
+                    id: Date.now() - 70000,
+                    username: "Oct 2024 Candidate",
+                    rating: 2,
+                    rounds: "3",
+                    experience: "negative",
+                    comment: "3-4round 1 round.apptitude and 3coding .in coding star patten and simple question . Simple oops and must prepare for logical memorial test. The process took 3 days. Difficult interview.",
+                    timestamp: new Date(Date.now() - 604800000).toISOString()
+                },
+                {
+                    id: Date.now() - 60000,
+                    username: "Mumbai Candidate",
+                    rating: 3,
+                    rounds: "2",
+                    experience: "neutral",
+                    comment: "First round: 3coding fibbonaci, second largest elements, sum of digit, 20 easy Apptitute Second round: technical round, logic al simple question, basic opps Hr round: offered 8k for interdhip after that 1.80 LPA. Easy interview.",
+                    timestamp: new Date(Date.now() - 518400000).toISOString()
+                },
+                {
+                    id: Date.now() - 50000,
+                    username: "Feb 2024 Candidate",
+                    rating: 1,
+                    rounds: "2",
+                    experience: "negative",
+                    comment: "First round was aptitude questions round. Very poor hospitality and arrangement. There was noise all around while giving the exam. Second round was interview which took more than 3 hrs to conduct. They make you wait unnecessarily. Waiting time is too much.",
+                    timestamp: new Date(Date.now() - 432000000).toISOString()
+                },
+                {
+                    id: Date.now() - 40000,
+                    username: "Jul 2023 Candidate",
+                    rating: 2,
+                    rounds: "3",
+                    experience: "negative",
+                    comment: "Only offline interviews. 3 rounds. 1. coding and Aptitude Round. 2. Technical round. 3. HR round. Asked to solve 6 to 7 coding problems in technical round itself. For a fresher level the difficulty is very high compared to the salary.",
+                    timestamp: new Date(Date.now() - 345600000).toISOString()
                 },
                 {
                     id: Date.now() - 30000,
-                    username: "Tech Enthusiast",
-                    rating: 4,
-                    comment: "Good interview process with logical reasoning questions. Asked about water jug problem, factorial recursive code, and array manipulation. Interviewers were professional but the difficulty level was high for fresher position.",
-                    rounds: "2",
-                    experience: "positive",
+                    username: "Recent Candidate",
+                    rating: 1,
+                    rounds: "3",
+                    experience: "negative",
+                    comment: "Round 1 :- basic logical, math and 4 coding questions(count num, reverse digit, reverse string,prime number). Round 2 :- It was game based round we have to play on game and must complete 5 level of each game. Round 3 :- the interview was very rude, and also after solving all the correct questions in both first two round, the interviewer seems not interested.",
                     timestamp: new Date(Date.now() - 259200000).toISOString()
                 }
             ];
             
-            this.reviews = sampleReviews;
+            this.reviews = idzInterviews;
+            this.filteredReviews = [...this.reviews];
             this.saveReviews();
         }
-    }
-    
-    saveReviews() {
-        localStorage.setItem('reviews', JSON.stringify(this.reviews));
     }
     
     handleSubmit(e) {
@@ -81,33 +126,34 @@ class ReviewSystem {
         try {
             const formData = new FormData(this.form);
             const username = formData.get('username').trim();
-            const comment = formData.get('comment').trim();
-            const rating = parseInt(formData.get('rating'));
             const rounds = formData.get('rounds');
             const experience = formData.get('experience');
+            const comment = formData.get('comment').trim();
+            const rating = parseInt(formData.get('rating'));
             
-            if (!username || !comment || !rating || rating < 1 || rating > 5 || !rounds || !experience) {
+            if (!username || !rounds || !experience || !comment || !rating || rating < 1 || rating > 5) {
                 throw new Error('Invalid form data');
             }
             
             const review = {
                 id: Date.now(),
                 username,
-                rating,
-                comment,
                 rounds,
                 experience,
+                rating,
+                comment,
                 timestamp: new Date().toISOString()
             };
             
             this.addReview(review);
             this.form.reset();
-            this.updateStarDisplay(0);
             document.getElementById('ratingText').textContent = 'Please select a rating';
+            document.getElementById('charCount').textContent = '0';
+            this.updateStarDisplay(0);
             
             this.showNotification('Interview experience submitted successfully!', 'success');
         } catch (error) {
-            this.showNotification('Error submitting review. Please try again.', 'error');
+            this.showNotification('Error submitting experience. Please try again.', 'error');
             console.error('Submit error:', error);
         }
     }
@@ -185,30 +231,40 @@ class ReviewSystem {
         return stars.join('');
     }
     
+    getExperienceBadge(experience) {
+        const colors = {
+            'positive': '#28a745',
+            'negative': '#dc3545',
+            'neutral': '#ffc107'
+        };
+        const labels = {
+            'positive': 'Positive',
+            'negative': 'Negative', 
+            'neutral': 'Neutral'
+        };
+        return `<span style="background: ${colors[experience]}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8em;">${labels[experience]}</span>`;
+    }
+    
     createReviewElement(review) {
         const reviewDiv = document.createElement('div');
         reviewDiv.className = 'review-item';
-        
-        const experienceBadge = review.experience ? `<span class="experience-badge ${review.experience}">${review.experience.charAt(0).toUpperCase() + review.experience.slice(1)}</span>` : '';
-        const roundsInfo = review.rounds ? `<span class="rounds-info">${review.rounds} Round${review.rounds > 1 ? 's' : ''}</span>` : '';
-        
         reviewDiv.innerHTML = `
             <div class="review-header">
                 <span class="review-username">${this.escapeHtml(review.username)}</span>
                 <span class="review-rating">${review.rating}/5</span>
             </div>
             <div class="review-meta">
-                ${experienceBadge}
-                ${roundsInfo}
-                <span class="review-time">${this.formatTimestamp(review.timestamp)}</span>
+                ${this.getExperienceBadge(review.experience)}
+                <span style="margin-left: 10px; color: #666;">📋 ${review.rounds} Round${review.rounds > 1 ? 's' : ''}</span>
             </div>
+            <div class="review-time">${this.formatTimestamp(review.timestamp)}</div>
             <div class="review-comment">${this.escapeHtml(review.comment)}</div>
             <div style="margin-top: 10px; font-size: 1.2em;">
                 ${this.getRatingStars(review.rating)}
             </div>
             <div class="review-actions">
-                <button class="edit-btn" onclick="reviewSystem.editReview(${review.id})">Edit</button>
-                <button class="delete-btn" onclick="reviewSystem.confirmDelete(${review.id})">Delete</button>
+                <button class="edit-btn" onclick="interviewReviewSystem.editReview(${review.id})">Edit</button>
+                <button class="delete-btn" onclick="interviewReviewSystem.confirmDelete(${review.id})">Delete</button>
             </div>
         `;
         return reviewDiv;
@@ -218,7 +274,7 @@ class ReviewSystem {
         const review = this.reviews.find(r => r.id === id);
         if (!review) return;
         
-        const newComment = prompt('Edit your comment:', review.comment);
+        const newComment = prompt('Edit your review:', review.comment);
         if (newComment !== null && newComment.trim() !== '') {
             review.comment = newComment.trim();
             review.timestamp = new Date().toISOString();
@@ -290,7 +346,9 @@ class ReviewSystem {
         const searchTerm = this.searchInput.value.toLowerCase();
         this.filteredReviews = this.reviews.filter(review =>
             review.username.toLowerCase().includes(searchTerm) ||
-            review.comment.toLowerCase().includes(searchTerm)
+            review.comment.toLowerCase().includes(searchTerm) ||
+            review.experience.toLowerCase().includes(searchTerm) ||
+            review.rounds.includes(searchTerm)
         );
         this.currentPage = 1;
         this.displayReviews();
@@ -335,7 +393,7 @@ class ReviewSystem {
     
     displayReviews() {
         if (this.filteredReviews.length === 0) {
-            this.reviewsContainer.innerHTML = '<div class="no-reviews">No interview experiences found.</div>';
+            this.reviewsContainer.innerHTML = '<div class="no-reviews">No reviews found.</div>';
             this.pagination.innerHTML = '';
             return;
         }
@@ -363,16 +421,16 @@ class ReviewSystem {
         let paginationHTML = '';
         
         if (this.currentPage > 1) {
-            paginationHTML += `<button onclick="reviewSystem.goToPage(${this.currentPage - 1})">Previous</button>`;
+            paginationHTML += `<button onclick="interviewReviewSystem.goToPage(${this.currentPage - 1})">Previous</button>`;
         }
         
         for (let i = 1; i <= totalPages; i++) {
             const activeClass = i === this.currentPage ? 'active' : '';
-            paginationHTML += `<button class="${activeClass}" onclick="reviewSystem.goToPage(${i})">${i}</button>`;
+            paginationHTML += `<button class="${activeClass}" onclick="interviewReviewSystem.goToPage(${i})">${i}</button>`;
         }
         
         if (this.currentPage < totalPages) {
-            paginationHTML += `<button onclick="reviewSystem.goToPage(${this.currentPage + 1})">Next</button>`;
+            paginationHTML += `<button onclick="interviewReviewSystem.goToPage(${this.currentPage + 1})">Next</button>`;
         }
         
         this.pagination.innerHTML = paginationHTML;
@@ -389,11 +447,11 @@ class ReviewSystem {
         const ratingText = document.getElementById('ratingText');
         
         const ratingTexts = {
-            1: 'Poor Experience',
-            2: 'Fair Experience', 
-            3: 'Good Experience',
-            4: 'Very Good Experience',
-            5: 'Excellent Experience'
+            1: 'Poor',
+            2: 'Fair', 
+            3: 'Good',
+            4: 'Very Good',
+            5: 'Excellent'
         };
         
         stars.forEach(star => {
@@ -432,145 +490,24 @@ class ReviewSystem {
     initCharCounter() {
         const commentTextarea = document.getElementById('comment');
         const charCount = document.getElementById('charCount');
-        const charCounter = document.querySelector('.char-counter');
         
         commentTextarea.addEventListener('input', () => {
             const currentLength = commentTextarea.value.length;
             charCount.textContent = currentLength;
             
             if (currentLength > 450) {
-                charCounter.classList.add('warning');
+                charCount.style.color = '#dc3545';
+            } else if (currentLength > 400) {
+                charCount.style.color = '#ffc107';
             } else {
-                charCounter.classList.remove('warning');
+                charCount.style.color = '#666';
             }
         });
     }
-    
-    initDarkMode() {
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        
-        // Check for saved dark mode preference
-        const savedDarkMode = localStorage.getItem('darkMode');
-        if (savedDarkMode === 'true') {
-            body.classList.add('dark-mode');
-            darkModeToggle.textContent = '☀️';
-        }
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDarkMode = body.classList.contains('dark-mode');
-            darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
-            localStorage.setItem('darkMode', isDarkMode);
-        });
-    }
-    
-    loadSampleData() {
-        if (this.reviews.length === 0) {
-            const idzReviews = [
-                {
-                    username: "Anonymous Candidate",
-                    rating: 2,
-                    comment: "Very third class. Tech employees who take interviews don't even know actual logical questions and only they know is their answers. Instead of focusing on technical abilities they waste their time asking Logical questions which they don't even know about.",
-                    timestamp: new Date(2024, 5, 15).toISOString()
-                },
-                {
-                    username: "Fresher Candidate",
-                    rating: 3,
-                    comment: "First Round was an aptitute and coding round like 2 coding questions and 7-10 apti, Second was Technical coding interview, asked questions to write code like to find second largest digit in array, factorial.",
-                    timestamp: new Date(2024, 5, 20).toISOString()
-                },
-                {
-                    username: "Java Developer",
-                    rating: 3,
-                    comment: "1 Resume screening 2 Aptitude test which consisted of around 20 questions and 3 coding questions 3 Technical interview, questions based on Java, OOPs, logical reasoning questions and few puzzles",
-                    timestamp: new Date(2024, 4, 10).toISOString()
-                },
-                {
-                    username: "Negative Experience",
-                    rating: 1,
-                    comment: "The interview was very rude, and also after solving all the correct questions in both first two round, the interviewer seems not interested, he also not shared his name, whats his role in company directly started with the questions.",
-                    timestamp: new Date(2025, 7, 10).toISOString()
-                },
-                {
-                    username: "Positive Candidate",
-                    rating: 4,
-                    comment: "There are total 4 rounds of interview 1] a) Aptitude, coding ( Google form) b)Puzzles on PC 2] Technical Interview 3] HR interview 4] Director round (on a different day)",
-                    timestamp: new Date(2024, 11, 15).toISOString()
-                },
-                {
-                    username: "Easy Interview",
-                    rating: 4,
-                    comment: "3-4round 1 round.apptitude and 3coding .in coding star patten and simple question . Simple oops and must prepare for logical memorial test.",
-                    timestamp: new Date(2024, 9, 5).toISOString()
-                },
-                {
-                    username: "Mumbai Candidate",
-                    rating: 3,
-                    comment: "First Round was an aptitute and coding round like 2 coding questions and 7-10 apti, Second was Technical coding interview , asked questions to write code like to find second largest digit in array , factorial.",
-                    timestamp: new Date(2024, 5, 25).toISOString()
-                },
-                {
-                    username: "Poor Hospitality",
-                    rating: 1,
-                    comment: "First round was aptitude questions round. Very poor hospitality and arrangement. There was noise all around while giving the exam. Second round was interview which took more than 3 hrs to conduct.",
-                    timestamp: new Date(2024, 1, 10).toISOString()
-                },
-                {
-                    username: "Feb 2024 Candidate",
-                    rating: 3,
-                    comment: "Aptitude Questions were easy based on trains speed, easy maths Coding questions were also easy mostly about reverse a three digit number.",
-                    timestamp: new Date(2024, 1, 20).toISOString()
-                },
-                {
-                    username: "Pattern Questions",
-                    rating: 3,
-                    comment: "1.Simple Aptitude questions 2.Coding questions Fibonacci series, prime number,second largest array, 3 coding question + 20 aptitude questions Time 2 hrs",
-                    timestamp: new Date(2024, 0, 15).toISOString()
-                },
-                {
-                    username: "Low Offer",
-                    rating: 2,
-                    comment: "First round: 3codind fibbonaci, second largest elements, sum of digit, 20 easy Apptitute Second round: technical round, logic al simple question, basic opps Hr round: offered 8k for interdhip after that 1.80 LPA.",
-                    timestamp: new Date(2024, 0, 25).toISOString()
-                },
-                {
-                    username: "Offline Interview",
-                    rating: 2,
-                    comment: "Only offline interviews. 3 rounds. 1. coding and Aptitude Round. 2. Technical round. 3. HR round. Asked to solve 6 to 7 coding problems in technical round itself. For a fresher level the difficulty is very high compared to the salary.",
-                    timestamp: new Date(2023, 6, 15).toISOString()
-                },
-                {
-                    username: "Jul 2023 Candidate",
-                    rating: 3,
-                    comment: "Aptitude and programming rounds assess problem-solving and coding skills. Technical rounds delve into domain expertise. HR rounds evaluate communication, teamwork, and cultural fit, ensuring well-rounded candidates.",
-                    timestamp: new Date(2023, 6, 20).toISOString()
-                },
-                {
-                    username: "Jun 2023 Candidate",
-                    rating: 2,
-                    comment: "programs on array pattern palindome",
-                    timestamp: new Date(2023, 5, 10).toISOString()
-                },
-                {
-                    username: "Substring Problem",
-                    rating: 3,
-                    comment: "- Finding a sub-String in main stri",
-                    timestamp: new Date(2023, 5, 25).toISOString()
-                }
-            ];
-            
-            idzReviews.forEach(review => {
-                review.id = Date.now() + Math.random();
-                this.reviews.push(review);
-            });
-            this.saveReviews();
-        }
-    }
 }
 
-let reviewSystem;
+let interviewReviewSystem;
 
 document.addEventListener('DOMContentLoaded', () => {
-    reviewSystem = new ReviewSystem();
+    interviewReviewSystem = new InterviewReviewSystem();
 });

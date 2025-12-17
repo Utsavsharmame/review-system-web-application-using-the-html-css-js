@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load IDZ Digital Interview Data</title>
+</head>
+<body>
+    <h1>Loading IDZ Digital Interview Data...</h1>
+    <script>
+        const idzReviews = [
+            {
+                id: Date.now() - 1000000,
+                username: "Anonymous Candidate",
+                rating: 2,
+                comment: "Very third class. Tech employees who take interviews don't even know actual logical questions and only they know is their answers. Instead of focusing on technical abilities they waste their time asking Logical questions which they don't even know about.",
+                timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 900000,
+                username: "Fresher Applicant",
+                rating: 1,
+                comment: "First round was aptitude and coding round like 2 coding questions and 7-10 apti, Second was Technical coding interview, asked questions to write code like to find second largest digit in array, factorial. Very poor experience.",
+                timestamp: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 800000,
+                username: "Java Developer",
+                rating: 3,
+                comment: "1 Resume screening 2 Aptitude test which consisted of around 20 questions and 3 coding questions 3 Technical interview, questions based on Java, OOPs, logical reasoning questions and few puzzles. Average experience overall.",
+                timestamp: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 700000,
+                username: "Recent Graduate",
+                rating: 1,
+                comment: "There was an aptitude test and if you clear the aptitude you will be eligible for an interview. In interview you will be asked questions based on logical reasoning and some on technical. Very poor hospitality and arrangement.",
+                timestamp: new Date(Date.now() - 18 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 600000,
+                username: "Intern Candidate",
+                rating: 2,
+                comment: "First round: 3coding fibbonaci, second largest elements, sum of digit, 20 easy Apptitute Second round: technical round, logic al simple question, basic opps Hr round: offered 8k for interdhip after that 1.80 LPA. Did not decid to join.",
+                timestamp: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 500000,
+                username: "Software Engineer",
+                rating: 3,
+                comment: "Aptitude Questions were easy based on trains speed, easy maths Coding questions were also easy mostly about reverse a three digit number. I didnt get selected in the interview process. Fair process overall.",
+                timestamp: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 400000,
+                username: "Web Developer",
+                rating: 1,
+                comment: "Round 1 :- basic logical, math and 4 coding questions(count num, reverse digit, reverse string,prime number). Round 2 :- It was game based round we have to play on game and must complete 5 level of each game. Round 3 :- the interview was very rude, and also after solving all the correct questions in both first two round, the interviewer seems not interested.",
+                timestamp: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 300000,
+                username: "CS Student",
+                rating: 2,
+                comment: "Only offline interviews. 3 rounds. 1. coding and Aptitude Round. 2. Technical round. 3. HR round. Asked to solve 6 to 7 coding problems in technical round itself. For a fresher level the difficulty is very high compared to the salary.",
+                timestamp: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 200000,
+                username: "Backend Developer",
+                rating: 4,
+                comment: "Aptitude Test with basic coding logic questions and maths, followed by technical round which focuses mainly on logical reasoning. Coding questions such as water jug problem, speed of car, etc. logic for basic games. Good learning experience.",
+                timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+            },
+            {
+                id: Date.now() - 100000,
+                username: "Full Stack Applicant",
+                rating: 3,
+                comment: "There are total 4 rounds of interview 1] a) Aptitude, coding ( Google form) b)Puzzles on PC 2] Technical Interview 3] HR interview 4] Director round (on a different day). Process was well structured but time consuming.",
+                timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+            }
+        ];
+        
+        localStorage.setItem('reviews', JSON.stringify(idzReviews));
+        document.body.innerHTML = '<h1>IDZ Digital Interview Data Loaded Successfully!</h1><p>You can now open review-system.html to see the interview experiences.</p>';
+        
+        setTimeout(() => {
+            window.location.href = 'review-system.html';
+        }, 2000);
+    </script>
+</body>
+</html>
